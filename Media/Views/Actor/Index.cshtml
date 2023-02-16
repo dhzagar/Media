@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ActorViewModel>
+
+
+<table class="table">
+     <thead>
+         <tr>
+             <th scope="col">Nombre actor</th>
+             <th scope="col">Nombre del personaje</th>
+         </tr>
+     </thead>
+@foreach(var Actores in Model){
+    <tbody class="table-group-divider">
+        <tr>
+            <td>@Actores.Name</td>
+            <td>@Actores.CharacterName</td>
+            <td>
+                <a asp-action="EditarActor" asp-controller="Admin" asp-route-id="@Actores.ActorId">Edit</a> |
+                <a asp-action="DeleteActor" asp-controller="Admin" asp-route-id="@Actores.ActorId"> Delete</a>
+            </td>
+        </tr>
+    </tbody>
+}
+</table>

@@ -1,0 +1,40 @@
+﻿@model ActorViewModel
+@if (ViewBag.mode == "EDIT")
+{
+    <h1>Editar actor</h1>
+}
+@if (ViewBag.mode == "ADD")
+{
+    <h1>Agregar nuevo actor</h1>
+}
+
+@using (Html.BeginForm("SaveActores", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    //@Html.HiddenFor(a => a.SerieId);
+    <input type="hidden" asp-for="@Model.SerieId => Id"/>
+    
+    <div class="mb-3">
+        <label for="Actores" class="form-label">Actor</label>
+        @if (Model != null)
+        {
+            <input type="text" class="form-control" asp-for="Name" value="@Model.Name">
+        }
+        else
+        {
+            <input type="text" class="form-control" asp-for="Name">
+        }
+    </div>
+    <div class="mb-3">
+        <label for="CharacterName" class="form-label">Personaje</label>
+        @if (Model != null)
+        {
+            <input type="text" class="form-control" asp-for="CharacterName" value="@Model.CharacterName">
+        }
+        else
+        {
+            <input type="text" class="form-control" asp-for="CharacterName" value="">
+        }
+    </div>
+    <input type="hidden" asp-for="ActorId"/>
+    <input type="submit" value="Guardar"/>
+}

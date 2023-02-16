@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SerieViewModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <button type="button" class="btn btn-sm btn-outline-secondary">@Html.ActionLink("Add", "Add", "Admin")</button>
+}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach (var Series in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="/images/@Series.ImagenURL" class="d-block w-100 img-fluid img-thumbnail" width="100" height="225" alt="@Series.Titulo" preserveAspectRatio="xMidYMid slice">
+                        <div class="card-body">
+                            <p class="card-text">@Series.Resumen </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary" asp-controller="Series" asp-action="Index" asp-route-id="@Series.Id">Ver</a>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary" asp-controller="Admin" asp-action="EditShow" asp-route-id="@Series.Id">Edit show</a>
+                                            <a class="btn btn-primary" asp-controller="Admin" asp-action="DeleteShow" asp-route-id="@Series.Id">Delete</a>
+                                        </div>
+                                    }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model SerieViewModel
+@{
+
+}
+
+<h2 class="display-2">@Model.Titulo</h2>
+<p>@Model.Resumen</p>
+<p>Temporadas: @Model.Temporadas</p>
+@Html.ActionLink("Ver actores", "Index", "Actor", new { Id = Model.Id})
+<img src="/images/@Model.ImagenURL" class="d-block w-100 img-fluid" width="480" height="240" alt="@Model.Titulo" preserveAspectRatio="xMidYMid slice">

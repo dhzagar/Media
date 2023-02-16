@@ -1,0 +1,65 @@
+﻿@model SerieViewModel
+
+@if (ViewBag.mode == "EDIT")
+{
+    <h1>Editar serie</h1>
+}
+@if (ViewBag.mode == "ADD")
+{
+    <h1>Agregar nueva serie</h1>
+}
+@using (Html.BeginForm("Save", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEditorSerie" }))
+{
+    <input type="hidden" asp-for="Id"/>
+    <div class="mb-3">
+        <label for="Titulo" class="form-label">Titulo</label>
+        @if(Model != null)
+        {
+            <input type="text" class="form-control" asp-for="Titulo" value="@Model.Titulo">
+        }else
+        {
+            <input type="text" class="form-control" asp-for="Titulo" value="">
+        }
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="Resumen" class="form-label">Resumen</label>
+        @if(Model != null)
+        {
+            <textarea class="form-control" asp-for="Resumen" rows="3">@Model.Resumen</textarea>
+
+        }else
+        {
+            <textarea class="form-control" asp-for="Resumen" rows="3"></textarea>
+        }
+        
+    </div>
+    <div class="mb-3">
+        <label for="Temporadas" class="form-label">Temporadas</label>
+        @if(Model != null)
+        {
+            <input type="number" class="form-control" asp-for="Temporadas" value="@Model.Temporadas">
+
+        }else
+        {
+            <input type="number" class="form-control" asp-for="Temporadas">
+        }
+    </div>
+
+    @Html.HiddenFor(m => m.ImagenURL)
+
+    @if (Model != null && Model.ImagenURL != null)
+    {
+        <img src="/images/@Model.ImagenURL" style="width: 150px" />
+        <br />
+    }
+    <span>Archivo:</span>
+    <input class="form-control" type="file" id="imagenSerie" name="imagenSerie">
+    <br />
+    <input type="submit" value="Guardar" />
+    <br />
+if(ViewBag.mode == "EDIT"){
+    <a asp-controller="Admin" asp-action="AddCast" asp-route-id="@Model.Id">Ir a formulario de actores</a>
+
+}
+}
